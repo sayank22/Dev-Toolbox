@@ -23,7 +23,6 @@ const JsonFormatter = () => {
 
   return (
     <div className="bg-white p-4 rounded shadow">
-      <h2 className="text-xl font-semibold mb-4">JSON Formatter</h2>
       <textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
