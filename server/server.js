@@ -1,20 +1,24 @@
-// server.js
+// server.js - Complete with simple routes
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const apiRoutes = require('./routes/api');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/devtoolbox';
+const MONGO_URI = process.env.MONGO_URI;
 
-// Optional: Set up CORS whitelist
-const allowedOrigins = process.env.ALLOWED_ORIGINS
+console.log('🔧 Starting server with MongoDB...');
+
+// Parse allowed origins
+const allowedOrigins = process.env.ALLOWED_ORIGINS 
   ? process.env.ALLOWED_ORIGINS.split(',').map(origin => origin.trim())
-  : [];
+  : ['http://localhost:5173'];
 
+console.log('🌐 Allowed Origins:', allowedOrigins);
+
+// CORS configuration
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -25,27 +29,51 @@ app.use(cors({
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
-allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-// Important: this helps handle CORS preflight requests
-app.options('*', cors());
-// Middleware
+// Body parser
 app.use(bodyParser.json());
 
-// MongoDB connection
-mongoose.connect(MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('✅ MongoDB connected'))
-.catch((err) => console.error('❌ MongoDB connection error:', err));
-
-// Routes
-app.use('/api', apiRoutes);
-
-// Server listener
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+// Test routes
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    mongodb: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected'
+  });
 });
 
+app.get('/test', (req, res) => {
+  res.json({ message: 'Server working!' });
+});
+
+// Add API routes
+console.log('🔄 Loading API routes...');
+try {
+  const apiRoutes = require('./routes/api');
+  app.use('/api', apiRoutes);
+  console.log('✅ API routes loaded successfully');
+} catch (error) {
+  console.error('❌ Error loading API routes:', error.message);
+}
+
+// Connect to MongoDB (remove deprecated options)
+console.log('🔄 Connecting to MongoDB...');
+mongoose.connect(MONGO_URI)
+.then(() => {
+  console.log('✅ MongoDB connected');
+})
+.catch((err) => {
+  console.error('❌ MongoDB connection error:', err.message);
+});
+
+// Start server
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`✅ Test: http://localhost:${PORT}/test`);
+  console.log(`✅ Health: http://localhost:${PORT}/health`);
+  console.log(`✅ API Test: http://localhost:${PORT}/api/test`);
+});
+
+console.log('✅ Server setup complete');
