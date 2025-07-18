@@ -1,6 +1,5 @@
 import React from 'react';
 
-// Tabs.jsx
 const Tabs = ({ activeTab, setActiveTab }) => {
   return (
     <div className="flex justify-center gap-4">

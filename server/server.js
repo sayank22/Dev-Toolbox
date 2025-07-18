@@ -1,4 +1,3 @@
-// server.js - Complete with simple routes
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -11,14 +10,12 @@ const MONGO_URI = process.env.MONGO_URI;
 
 console.log('🔧 Starting server with MongoDB...');
 
-// Parse allowed origins
 const allowedOrigins = process.env.ALLOWED_ORIGINS 
   ? process.env.ALLOWED_ORIGINS.split(',').map(origin => origin.trim())
   : ['http://localhost:5173'];
 
 console.log('Allowed Origins:', allowedOrigins);
 
-// CORS configuration
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -32,10 +29,8 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-// Body parser
 app.use(bodyParser.json());
 
-// Test routes
 app.get('/health', (req, res) => {
   res.json({ 
     status: 'OK', 
@@ -48,7 +43,7 @@ app.get('/test', (req, res) => {
   res.json({ message: 'Server working!' });
 });
 
-// Add API routes
+
 console.log('Loading API routes...');
 try {
   const apiRoutes = require('./routes/api');
@@ -58,7 +53,6 @@ try {
   console.error('Error loading API routes:', error.message);
 }
 
-// Connect to MongoDB (remove deprecated options)
 console.log('Connecting to MongoDB...');
 mongoose.connect(MONGO_URI)
 .then(() => {
@@ -68,7 +62,6 @@ mongoose.connect(MONGO_URI)
   console.error('MongoDB connection error:', err.message);
 });
 
-// Start server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
   console.log(`Test: http://localhost:${PORT}/test`);

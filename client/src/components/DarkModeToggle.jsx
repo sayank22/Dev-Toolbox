@@ -2,7 +2,7 @@ import React from 'react';
 import { useDarkMode } from '../context/ThemeContext';
 
 const DarkModeToggle = () => {
-  const { darkMode, setDarkMode } = useDarkMode(); // ✅ FIXED: Call the hook
+  const { darkMode, setDarkMode } = useDarkMode(); 
 
   return (
     <button 
