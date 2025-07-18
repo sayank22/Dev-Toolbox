@@ -34,13 +34,13 @@ const Base64Tool = () => {
       <div className="mb-4 flex gap-4">
         <button
           onClick={() => setMode("encode")}
-          className={`px-4 py-2 rounded ${mode === "encode" ? "bg-blue-600 text-white" : "bg-gray-200"}`}
+          className={`px-4 py-2 rounded ${mode === "encode" ? "bg-blue-600 text-white" : "bg-gray-400"}`}
         >
           Encode
         </button>
         <button
           onClick={() => setMode("decode")}
-          className={`px-4 py-2 rounded ${mode === "decode" ? "bg-blue-600 text-white" : "bg-gray-200"}`}
+          className={`px-4 py-2 rounded ${mode === "decode" ? "bg-blue-600 text-white" : "bg-gray-400"}`}
         >
           Decode
         </button>
@@ -51,7 +51,7 @@ const Base64Tool = () => {
         onChange={(e) => setInput(e.target.value)}
         rows={6}
         placeholder="Enter text here..."
-        className="w-full p-2 border rounded mb-4"
+        className="w-full p-2 border rounded mb-4 dark:text-amber-800"
       />
 
       <button

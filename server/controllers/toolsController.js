@@ -6,7 +6,6 @@ exports.formatJson = async (req, res) => {
     const parsed = JSON.parse(text);
     const formatted = JSON.stringify(parsed, null, 2);
 
-    // Save to MongoDB
     await FormattedJson.create({
       originalJson: text,
       formattedJson: formatted,
@@ -45,7 +44,6 @@ exports.decodeBase64 = (req, res) => {
   }
 };
 
-// New controller to get JSON history
 exports.getJsonHistory = async (req, res) => {
   try {
     const history = await FormattedJson.find()

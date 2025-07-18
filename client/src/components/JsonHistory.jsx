@@ -26,13 +26,13 @@ const JsonHistory = () => {
 
   return (
     <div className="bg-white p-4 rounded shadow">
-      <h2 className="text-xl font-semibold mb-4">Formatted JSON History</h2>
+      <h2 className="text-xl font-semibold mb-4 dark:text-amber-900">Formatted JSON History</h2>
       {jsons.length === 0 ? (
         <p>No entries found.</p>
       ) : (
         <ul className="space-y-4">
           {jsons.map((item) => (
-            <li key={item._id} className="bg-gray-100 p-2 rounded font-mono text-sm whitespace-pre-wrap">
+            <li key={item._id} className="bg-gray-200 p-2 rounded font-mono text-sm whitespace-pre-wrap dark:bg-gray-600">
               {item.formattedJson}
             </li>
           ))}
