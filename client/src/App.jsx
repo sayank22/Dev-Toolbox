@@ -19,12 +19,14 @@ const App = () => {
     <ThemeProvider>
       <div className="min-h-screen bg-slate-200 p-6 dark:bg-gray-900 dark:text-white">
       <h1 className="text-2xl font-bold text-center mb-4">Dev Toolbox</h1>
-      <DarkModeToggle />
       <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <div className="mt-6">
         {renderTabContent()}
       </div>
+      <div className="mt-8 flex justify-center">
+      <DarkModeToggle />
+    </div>
     </div>
     </ThemeProvider>
   );
