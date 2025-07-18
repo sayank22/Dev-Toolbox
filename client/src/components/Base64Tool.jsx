@@ -11,8 +11,8 @@ const Base64Tool = () => {
     try {
       const endpoint =
         mode === 'encode'
-          ? 'http://localhost:5000/api/encode'
-          : 'http://localhost:5000/api/decode';
+          ? `${import.meta.env.VITE_API_URL}/api/encode`
+          : `${import.meta.env.VITE_API_URL}/api/decode`;
 
       const res = await axios.post(endpoint, { text: input });
       setOutput(res.data.result);

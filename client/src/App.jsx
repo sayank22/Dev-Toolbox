@@ -2,9 +2,16 @@ import React, { useState } from 'react';
 import Tabs from './components/Tabs';
 import JsonFormatter from './components/JsonFormatter';
 import Base64Tool from './components/Base64Tool';
+import JsonHistory from './components/JsonHistory';
 
 const App = () => {
   const [activeTab, setActiveTab] = useState('json');
+
+  const renderTabContent = () => {
+    if (activeTab === 'json') return <JsonFormatter />;
+    if (activeTab === 'base64') return <Base64Tool />;
+    if (activeTab === 'history') return <JsonHistory />;
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -12,7 +19,7 @@ const App = () => {
       <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <div className="mt-6">
-        {activeTab === 'json' ? <JsonFormatter /> : <Base64Tool />}
+        {renderTabContent()}
       </div>
     </div>
   );
