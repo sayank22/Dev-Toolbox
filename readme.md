@@ -5,9 +5,16 @@
 ---
 
 ## 🔗 Links
-[![Resume](https://img.shields.io/badge/View_Reasume-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://drive.google.com/file/d/1Mhn6U396WW0DiciBdBbsP2eJP5P9CSg4/view?usp=drive_link)
+[![Resume](https://img.shields.io/badge/View_Reasume-000?style=for-the-badge&logo=&logoColor=white)](https://drive.google.com/file/d/1Mhn6U396WW0DiciBdBbsP2eJP5P9CSg4/view?usp=drive_link)
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sayan-kundu-70b5442b6/)
 [![Github](https://img.shields.io/badge/github-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://github.com/sayank22)
+[![Portfolio Site](https://img.shields.io/badge/Portfolio_Site-000?style=for-the-badge&logo=&logoColor=white)](https://sayan-kundu-portfolio.netlify.app)
+
+---
+
+# Dev Toolbox
+
+Dev Toolbox is a lightweight and user-friendly web application designed to simplify routine development tasks. Built using React and Node.js, it offers essential utilities like JSON formatting and Base64 encoding/decoding—all in one place. Whether you're debugging APIs or working with encoded data, Dev Toolbox helps you get the job done faster.
 
 ---
 
@@ -16,10 +23,6 @@
 Live Link: [https://dev-toolbox-sayankundu.vercel.app/](https://dev-toolbox-sayankundu.vercel.app/)
 
 ---
-
-# Dev Toolbox
-
-Dev Toolbox is a lightweight and user-friendly web application designed to simplify routine development tasks. Built using React and Node.js, it offers essential utilities like JSON formatting and Base64 encoding/decoding—all in one place. Whether you're debugging APIs or working with encoded data, Dev Toolbox helps you get the job done faster.
 
 ## Features
 
@@ -48,7 +51,7 @@ Dev Toolbox is a lightweight and user-friendly web application designed to simpl
 ## 🚀 Technologies I Used
 
 **Frontend:**
- ⚛️ React, 📦 Vite, 📍 React Route
+ ⚛️ React, 📦 Vite, 📍 React Router
 
 **Backend:**
  🛠️ Node.js, 🚀 Express
