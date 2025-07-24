@@ -119,6 +119,22 @@ npm run dev
 
 ```
 
+## 🐳 Docker 
+
+### Prerequisites
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+
+### Run the app
+
+```bash
+docker-compose up --build
+Frontend: http://localhost:5173
+
+Backend: http://localhost:5000
+
+---
+
 ## 🚀 Future Improvements
 
 Here are some ideas to enhance **Dev Toolbox** further:
