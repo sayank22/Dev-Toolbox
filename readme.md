@@ -17,8 +17,6 @@ Live Link: [https://dev-toolbox-sayankundu.vercel.app/](https://dev-toolbox-saya
 
 ---
 
-# Jivaka - HealthCare Management System
-
 Dev Toolbox is a lightweight and user-friendly web application designed to simplify routine development tasks. Built using React and Node.js, it offers essential utilities like JSON formatting and Base64 encoding/decoding—all in one place. Whether you're debugging APIs or working with encoded data, Dev Toolbox helps you get the job done faster.
 
 ## Features
@@ -70,6 +68,7 @@ Dev Toolbox is a lightweight and user-friendly web application designed to simpl
 ## 🌐 Live Links
 
 **🔗 Frontend: https://dev-toolbox-sayankundu.vercel.app**
+
 **🔗 Backend API: https://dev-toolbox-ibv6.onrender.com**
 
 ---
@@ -113,7 +112,8 @@ VITE_API_URL=https://your-backend-url.com
 
 ```
 **Run the server:**
-```bash
+```
+bash
 
 npm run dev
 
@@ -127,8 +127,11 @@ npm run dev
 
 ### Run the app
 
-```bash
+```
+bash
 docker-compose up --build
+
+```
 Frontend: http://localhost:5173
 
 Backend: http://localhost:5000
