@@ -35,7 +35,7 @@ const JsonFormatter = () => {
         onChange={(e) => setInput(e.target.value)}
         rows={8}
         placeholder="Paste your JSON here..."
-        className="w-full p-2 border rounded mb-4 font-mono dark:text-amber-800 dark:bg-gray-900"
+        className="w-full p-2 border rounded mb-4 font-mono dark:text-red-600 dark:bg-gray-900"
       />
 
       <button

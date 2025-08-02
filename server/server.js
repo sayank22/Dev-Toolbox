@@ -8,13 +8,10 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
-console.log('🔧 Starting server with MongoDB...');
-
+// Set allowed origins for CORS
 const allowedOrigins = process.env.ALLOWED_ORIGINS 
   ? process.env.ALLOWED_ORIGINS.split(',').map(origin => origin.trim())
   : ['http://localhost:5173'];
-
-console.log('Allowed Origins:', allowedOrigins);
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -31,6 +28,7 @@ app.use(cors({
 
 app.use(bodyParser.json());
 
+// Health check endpoint
 app.get('/health', (req, res) => {
   res.json({ 
     status: 'OK', 
@@ -39,34 +37,25 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Test endpoint
 app.get('/test', (req, res) => {
   res.json({ message: 'Server working!' });
 });
 
+// Load API routes
+const apiRoutes = require('./routes/api');
+app.use('/api', apiRoutes);
 
-console.log('Loading API routes...');
-try {
-  const apiRoutes = require('./routes/api');
-  app.use('/api', apiRoutes);
-  console.log('API routes loaded successfully');
-} catch (error) {
-  console.error('Error loading API routes:', error.message);
-}
-
-console.log('Connecting to MongoDB...');
+// Connect to MongoDB
 mongoose.connect(MONGO_URI)
-.then(() => {
-  console.log('MongoDB connected');
-})
-.catch((err) => {
-  console.error('MongoDB connection error:', err.message);
-});
+  .then(() => {
+    console.log('MongoDB connected');
+  })
+  .catch((err) => {
+    console.error('MongoDB connection error:', err.message);
+  });
 
+// Start server
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-  console.log(`Test: http://localhost:${PORT}/test`);
-  console.log(`Health: http://localhost:${PORT}/health`);
-  console.log(`API Test: http://localhost:${PORT}/api/test`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
-
-console.log('Server setup complete');

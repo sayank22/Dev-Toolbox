@@ -34,7 +34,7 @@ const Base64Tool = () => {
 
   return (
     <div className="bg-white p-4 rounded shadow dark:bg-gray-800 dark:text-white">
-      <h2 className="text-xl font-semibold mb-4">
+      <h2 className="text-amber-600 text-xl font-semibold mb-4">
         Base64 {mode === "encode" ? "Encoder" : "Decoder"}
       </h2>
 
@@ -66,7 +66,7 @@ const Base64Tool = () => {
         onChange={(e) => setInput(e.target.value)}
         rows={6}
         placeholder="Enter text here..."
-        className="w-full p-2 border rounded mb-4 font-mono dark:text-amber-800 dark:bg-gray-900"
+        className="w-full p-2 border rounded mb-4 font-mono dark:text-red-600 dark:bg-gray-900"
       />
 
       <button
