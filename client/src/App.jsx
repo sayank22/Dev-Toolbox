@@ -30,28 +30,27 @@ const App = () => {
       <div className="min-h-screen bg-slate-100 dark:bg-gray-950 transition-colors duration-300">
         <div className="max-w-5xl mx-auto px-4 py-8">
           
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
-              Developer Toolbox
-            </h1>
+         {/* Header */}
+<div className="relative mb-8">
 
-            {/* Logo */}
-            {/* <div className="mx-auto mb-4">
-              <img src="/logo.png" alt="Logo" className="h-48 w-48" />
-            </div> */}
+  {/* Dark Mode Toggle */}
+  <div className="flex justify-center md:absolute md:top-0 md:right-0 mb-4 md:mb-0">
+    <DarkModeToggle />
+  </div>
 
-            {/* Dark Mode Toggle at top-right corner */}
-            <div className="absolute top-4 right-4">
-              <DarkModeToggle />
-            </div>
+  <div className="text-center">
+    <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+      Developer Toolbox
+    </h1>
 
-            <p className="mt-3 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              A collection of essential developer utilities including JSON
-              formatting, Base64 encoding/decoding, password generation, and
-              history tracking.
-            </p>
-          </div>
+    <p className="mt-3 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+      A collection of essential developer utilities including JSON
+      formatting, Base64 encoding/decoding, password generation, and
+      history tracking.
+    </p>
+  </div>
+
+</div>
 
           {/* Navigation Tabs */}
           <Tabs

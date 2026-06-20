@@ -147,7 +147,7 @@ Backend: http://localhost:5000
 
 ## Demo
 
-See it live: [https://dev-toolbox-sayankundu.vercel.app/](https://dev-toolbox-sayankundu.vercel.app/)
+See it live: [https://dev-toolbox-sayankundu.vercel.app](https://dev-toolbox-sayankundu.vercel.app)
 
 ![Light Mode Demo](client/src/assets/Screenshot1.png)
 
