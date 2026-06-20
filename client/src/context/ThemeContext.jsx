@@ -1,11 +1,25 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+} from "react";
 
-const ThemeContext = createContext('light');
+const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [darkMode, setDarkMode] = useState(
-    localStorage.getItem("theme") === "dark"
-  );
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme) {
+      return savedTheme === "dark";
+    }
+
+    return window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+  });
 
   useEffect(() => {
     if (darkMode) {
@@ -18,7 +32,12 @@ export const ThemeProvider = ({ children }) => {
   }, [darkMode]);
 
   return (
-    <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
+    <ThemeContext.Provider
+      value={{
+        darkMode,
+        setDarkMode,
+      }}
+    >
       {children}
     </ThemeContext.Provider>
   );

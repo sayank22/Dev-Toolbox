@@ -1,4 +1,7 @@
+// src/components/PasswordGenerator.jsx
+
 import React, { useState } from "react";
+import { toast } from "sonner";
 
 const PasswordGenerator = () => {
   const [length, setLength] = useState(12);
@@ -35,7 +38,7 @@ const PasswordGenerator = () => {
     if (includeSymbols) chars += "!@#$%^&*()_+-=[]{}|;:,.<>?";
 
     if (!chars) {
-      alert("Select at least one character type.");
+      toast.info("Select at least one character type.");
       return;
     }
 
@@ -56,9 +59,10 @@ const PasswordGenerator = () => {
 
     try {
       await navigator.clipboard.writeText(password);
-      alert("Password copied!");
+      toast.success("Password copied to clipboard!");
     } catch (err) {
       console.error(err);
+      toast.error("Failed to copy password.");
     }
   };
 
