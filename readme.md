@@ -1,72 +1,78 @@
 ## Made By - Sayan Kundu
 
-**B.Tech in Computer Science | Full Stack Developer | Passionate about building real-world solutions**
+**Full Stack Developer | Proven Engineering Experience at Fintech and EdTech**
 
 ---
 
 ## 🔗 Links
-[![Resume](https://img.shields.io/badge/View_Reasume-000?style=for-the-badge&logo=&logoColor=white)](https://drive.google.com/file/d/1Mhn6U396WW0DiciBdBbsP2eJP5P9CSg4/view?usp=drive_link)
+[![Resume](https://img.shields.io/badge/View_Resume-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://drive.google.com/file/d/1c0JPOQJcRBYOldQvooPfd4gQQ0kkJgbq/view?usp=drive_link)
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sayan-kundu-70b5442b6/)
 [![Github](https://img.shields.io/badge/github-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://github.com/sayank22)
-[![Portfolio Site](https://img.shields.io/badge/Portfolio_Site-000?style=for-the-badge&logo=&logoColor=white)](https://sayan-kundu-portfolio.netlify.app)
+[![Portfolio](https://img.shields.io/badge/Portfolio-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://sayan-kundu-portfolio.netlify.app)
 
 ---
 
 # Dev Toolbox
 
-Dev Toolbox is a lightweight and user-friendly web application designed to simplify routine development tasks. Built using React and Node.js, it offers essential utilities like JSON formatting and Base64 encoding/decoding—all in one place. Whether you're debugging APIs or working with encoded data, Dev Toolbox helps you get the job done faster.
-
----
-
-# Dev Toolbox Live Link
-
-Live Link: [https://dev-toolbox-sayankundu.vercel.app/](https://dev-toolbox-sayankundu.vercel.app/)
+Dev Toolbox is a modern full-stack developer utility suite designed to simplify common development tasks. It provides a collection of essential tools including JSON formatting, Base64 encoding/decoding, secure password generation, and JSON history management through a clean, responsive, and user-friendly interface.
 
 ---
 
 ## Features
 
-- **🔧 JSON Formatter:**  
-  Input raw JSON and get prettified, indented output
+### JSON Formatter
+- Format and beautify raw JSON instantly
+- Upload `.json` files
+- Download formatted JSON
+- Copy formatted output to clipboard
+- JSON statistics (lines, characters, size)
+- Keyboard shortcut support (`Ctrl + Enter`)
+- Persistent history stored in MongoDB
 
-  Instantly highlights errors for invalid JSON
+### Base64 Tool
+- Encode text to Base64
+- Decode Base64 back to readable text
+- Copy and download results
+- Reuse output as input
+- Quick keyboard shortcuts
 
-- **🔐 Base64 Encoder/Decoder:**  
-  Encode plain text to Base64
+### Password Generator
+- Generate secure passwords using cryptographically secure randomness
+- Customize length and character types
+- Password strength indicator
+- Regenerate passwords instantly
+- One-click copy to clipboard
 
-  Decode Base64 back to human-readable text
+### JSON History
+- View previously formatted JSON entries
+- Search through history
+- Copy and download history entries
+- Delete individual entries
+- Clear all history records
 
-- **🧠 Process History:**  
-  View all previously formatted JSON entries
-
-- **🌙 Dark Mode Toggle:**  
-  Seamlessly switch between light and dark themes for better readability
-
-- **📋 Clipboard Copy Button:**  
-  Quickly copy output data with a single click
-
+### Additional Features
+- Dark/Light Mode
+- Responsive Design
+- Toast Notifications using Sonner
+- MongoDB-backed data persistence
+- Modern UI built with Tailwind CSS
 
 ---
 
-## 🚀 Technologies I Used
+## Tech Stack
 
-**Frontend:**
- ⚛️ React, 📦 Vite, 📍 React Router
+### Frontend
+- React
+- Vite
+- Tailwind CSS
+- Sonner
 
-**Backend:**
- 🛠️ Node.js, 🚀 Express
+### Backend
+- Node.js
+- Express.js
 
-**UI/UX:** 
-🎨 Tailwind CSS, 📱 Fully Responsive Design
-
-**Database:** 
-🗃️ MongoDB
-
-**Frontend Deployment:**
- ▲ Vercel
-
-**Backend Deployment:**
- 🌐 Render
+### Database
+- MongoDB
 
 ---
 
@@ -139,26 +145,10 @@ Backend: http://localhost:5000
 
 ---
 
-## 🚀 Future Improvements
-
-Here are some ideas to enhance **Dev Toolbox** further:
-
-- 🐳 **Dockerize Completely**: Already in progress — ensure seamless local setup using Docker Compose for both frontend and backend.
-
-- 📤 **File Upload for JSON**: Allow users to upload `.json` files for formatting instead of pasting text manually.
-
-- 📥 **Download Result**: Add a button to download prettified JSON or Base64 output as `.txt` or `.json` files.
-
-- 🔍 **Auto Detect Mode**: Automatically detect whether input is Base64 or plain text and switch between encode/decode modes accordingly.
-
-- 🗑️ **Delete History**: Provide a delete/reset option for the global JSON processing history.
-
-💬 **User Authentication**: Allow login so users can view their personal formatting history.
-
 ## Demo
 
 See it live: [https://dev-toolbox-sayankundu.vercel.app/](https://dev-toolbox-sayankundu.vercel.app/)
 
-![DarK Mode Demo](client/src/assets/Screenshot2.png)
+![Light Mode Demo](client/src/assets/Screenshot1.png)
 
-![Light Mode Demo](client/src/assets/Screenshot1.jpg)
+![DarK Mode Demo](client/src/assets/Screenshot2.png)
