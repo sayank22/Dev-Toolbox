@@ -21,12 +21,27 @@ const PasswordGenerator = () => {
     if (includeNumbers) score++;
     if (includeSymbols) score++;
 
-    if (score <= 2)
-      return { label: "Weak", className: "text-red-500" };
-    if (score <= 4)
-      return { label: "Medium", className: "text-yellow-500" };
+    if (score <= 2) {
+      return {
+        label: "Weak",
+        className: "text-red-500",
+        barClass: "bg-red-500 w-1/3",
+      };
+    }
 
-    return { label: "Strong", className: "text-green-500" };
+    if (score <= 4) {
+      return {
+        label: "Medium",
+        className: "text-yellow-500",
+        barClass: "bg-yellow-500 w-2/3",
+      };
+    }
+
+    return {
+      label: "Strong",
+      className: "text-green-500",
+      barClass: "bg-green-500 w-full",
+    };
   };
 
   const generatePassword = () => {
@@ -38,7 +53,7 @@ const PasswordGenerator = () => {
     if (includeSymbols) chars += "!@#$%^&*()_+-=[]{}|;:,.<>?";
 
     if (!chars) {
-      toast.info("Select at least one character type.");
+      toast.warning("Select at least one character type");
       return;
     }
 
@@ -52,6 +67,7 @@ const PasswordGenerator = () => {
     }
 
     setPassword(generated);
+    toast.success("Password generated");
   };
 
   const copyPassword = async () => {
@@ -59,105 +75,193 @@ const PasswordGenerator = () => {
 
     try {
       await navigator.clipboard.writeText(password);
-      toast.success("Password copied to clipboard!");
-    } catch (err) {
-      console.error(err);
-      toast.error("Failed to copy password.");
+      toast.success("Password copied");
+    } catch {
+      toast.error("Failed to copy password");
     }
   };
 
   const strength = getStrength();
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-      <h2 className="text-2xl font-bold mb-6 dark:text-white">
-        Password Generator
-      </h2>
-
+    <div className="app-card p-6">
       <div className="mb-5">
-        <label className="block mb-2 font-medium dark:text-white">
-          Password Length: {length}
-        </label>
+        <h2 className="section-title">
+          Password Generator
+        </h2>
 
-        <input
-          type="range"
-          min="4"
-          max="64"
-          value={length}
-          onChange={(e) => setLength(Number(e.target.value))}
-          className="w-full"
-        />
+        <p className="section-subtitle mt-1">
+          Generate strong and secure passwords instantly.
+        </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-3 mb-6 dark:text-white">
-        <label>
+      {/* Length */}
+      <div className="mb-6">
+        <label className="block mb-2 font-medium">
+          Password Length
+        </label>
+
+        <div className="flex gap-4 items-center">
+          <input
+            type="range"
+            min="4"
+            max="64"
+            value={length}
+            onChange={(e) =>
+              setLength(Number(e.target.value))
+            }
+            className="flex-1"
+          />
+
+          <input
+            type="number"
+            min="4"
+            max="64"
+            value={length}
+            onChange={(e) =>
+              setLength(Number(e.target.value))
+            }
+            className="app-input w-24 p-2 text-center"
+          />
+        </div>
+      </div>
+
+      {/* Options */}
+      <div className="grid grid-cols-2 gap-4 mb-6">
+        <label className="flex items-center gap-2">
           <input
             type="checkbox"
             checked={includeUpper}
-            onChange={() => setIncludeUpper(!includeUpper)}
-            className="mr-2"
+            onChange={() =>
+              setIncludeUpper(!includeUpper)
+            }
           />
           Uppercase
         </label>
 
-        <label>
+        <label className="flex items-center gap-2">
           <input
             type="checkbox"
             checked={includeLower}
-            onChange={() => setIncludeLower(!includeLower)}
-            className="mr-2"
+            onChange={() =>
+              setIncludeLower(!includeLower)
+            }
           />
           Lowercase
         </label>
 
-        <label>
+        <label className="flex items-center gap-2">
           <input
             type="checkbox"
             checked={includeNumbers}
-            onChange={() => setIncludeNumbers(!includeNumbers)}
-            className="mr-2"
+            onChange={() =>
+              setIncludeNumbers(!includeNumbers)
+            }
           />
           Numbers
         </label>
 
-        <label>
+        <label className="flex items-center gap-2">
           <input
             type="checkbox"
             checked={includeSymbols}
-            onChange={() => setIncludeSymbols(!includeSymbols)}
-            className="mr-2"
+            onChange={() =>
+              setIncludeSymbols(!includeSymbols)
+            }
           />
           Symbols
         </label>
       </div>
 
-      <button
-        onClick={generatePassword}
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-      >
-        Generate Password
-      </button>
+      {/* Actions */}
+      <div className="flex flex-wrap gap-3">
+        <button
+          onClick={generatePassword}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              generatePassword();
+            }
+          }}
+          className="btn-primary"
+        >
+          Generate Password
+        </button>
 
+        {password && (
+          <button
+            onClick={generatePassword}
+            className="btn-secondary"
+          >
+            🔄 Regenerate
+          </button>
+        )}
+      </div>
+
+      {/* Output */}
       {password && (
         <div className="mt-6">
-          <div className="relative">
+          <div className="flex gap-2 mb-3">
             <input
               value={password}
               readOnly
-              className="w-full p-3 border rounded bg-gray-100 dark:bg-gray-700 dark:text-white pr-24"
+              className="app-input font-mono flex-1"
             />
 
             <button
               onClick={copyPassword}
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-gray-300 hover:bg-gray-400 px-3 py-1 rounded text-sm dark:bg-gray-600 dark:hover:bg-gray-500"
+              className="btn-secondary"
             >
-              Copy
+              📋 Copy
             </button>
           </div>
 
-          <p className={`mt-3 font-semibold ${strength.className}`}>
-            Strength: {strength.label}
-          </p>
+          {/* Strength */}
+          <div className="mt-4">
+            <div className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+              <div
+                className={`h-full transition-all duration-300 ${strength.barClass}`}
+              />
+            </div>
+
+            <p
+              className={`mt-2 font-medium ${strength.className}`}
+            >
+              Strength: {strength.label}
+            </p>
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-3 gap-3 mt-5">
+            <div className="app-surface p-3 text-center">
+              <div className="text-sm text-gray-500 dark:text-gray-400">
+                Length
+              </div>
+
+              <div className="font-semibold">
+                {password.length}
+              </div>
+            </div>
+
+            <div className="app-surface p-3 text-center">
+              <div className="text-sm text-gray-500 dark:text-gray-400">
+                Numbers
+              </div>
+
+              <div className="font-semibold">
+                {includeNumbers ? "Yes" : "No"}
+              </div>
+            </div>
+
+            <div className="app-surface p-3 text-center">
+              <div className="text-sm text-gray-500 dark:text-gray-400">
+                Symbols
+              </div>
+
+              <div className="font-semibold">
+                {includeSymbols ? "Yes" : "No"}
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>

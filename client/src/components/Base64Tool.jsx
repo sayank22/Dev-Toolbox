@@ -53,25 +53,54 @@ const Base64Tool = () => {
     }
   };
 
+  const handleClear = () => {
+    setInput("");
+    setOutput("");
+    setError("");
+    toast.success("Cleared");
+  };
+
+  const handleUseAsInput = () => {
+    setInput(output);
+    toast.success("Result moved to input");
+  };
+
+  const handleDownload = () => {
+    const blob = new Blob([output], {
+      type: "text/plain",
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download =
+      mode === "encode"
+        ? "encoded.txt"
+        : "decoded.txt";
+
+    a.click();
+
+    URL.revokeObjectURL(url);
+
+    toast.success("Downloaded");
+  };
+
+  const stats = output
+    ? {
+        chars: output.length,
+        size: (output.length / 1024).toFixed(2),
+      }
+    : null;
+
   return (
-    <div
-      className="
-        bg-white
-        dark:bg-gray-900
-        border
-        border-gray-200
-        dark:border-gray-700
-        rounded-xl
-        shadow-sm
-        p-6
-      "
-    >
+    <div className="app-card p-6">
       <div className="mb-5">
-        <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
+        <h2 className="section-title">
           Base64 Tool
         </h2>
 
-        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+        <p className="section-subtitle mt-1">
           Encode plain text to Base64 or decode Base64 back to readable text.
         </p>
       </div>
@@ -80,28 +109,22 @@ const Base64Tool = () => {
       <div className="flex gap-3 mb-5">
         <button
           onClick={() => setMode("encode")}
-          className={`
-            px-4 py-2 rounded-lg font-medium transition-all
-            ${
-              mode === "encode"
-                ? "bg-blue-600 text-white"
-                : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-            }
-          `}
+          className={
+            mode === "encode"
+              ? "btn-primary"
+              : "btn-secondary"
+          }
         >
           Encode
         </button>
 
         <button
           onClick={() => setMode("decode")}
-          className={`
-            px-4 py-2 rounded-lg font-medium transition-all
-            ${
-              mode === "decode"
-                ? "bg-blue-600 text-white"
-                : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-            }
-          `}
+          className={
+            mode === "decode"
+              ? "btn-primary"
+              : "btn-secondary"
+          }
         >
           Decode
         </button>
@@ -110,47 +133,25 @@ const Base64Tool = () => {
       <textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.ctrlKey && e.key === "Enter") {
+            handleConvert();
+          }
+        }}
         rows={8}
         placeholder={
           mode === "encode"
             ? "Enter text to encode..."
             : "Enter Base64 text to decode..."
         }
-        className="
-          w-full
-          p-4
-          rounded-lg
-          border
-          border-gray-300
-          dark:border-gray-700
-          bg-gray-50
-          dark:bg-gray-800
-          text-gray-900
-          dark:text-gray-100
-          font-mono
-          text-sm
-          resize-none
-          focus:outline-none
-          focus:ring-2
-          focus:ring-blue-500
-        "
+        className="app-input font-mono text-sm resize-none"
       />
 
-      <div className="flex gap-3 mt-4">
+      <div className="flex flex-wrap gap-3 mt-4">
         <button
           onClick={handleConvert}
           disabled={loading}
-          className="
-            bg-green-600
-            hover:bg-green-700
-            disabled:opacity-50
-            text-white
-            px-5
-            py-2.5
-            rounded-lg
-            font-medium
-            transition-all
-          "
+          className="btn-primary disabled:opacity-50"
         >
           {loading
             ? "Converting..."
@@ -158,7 +159,18 @@ const Base64Tool = () => {
             ? "Encode"
             : "Decode"}
         </button>
+
+        <button
+          onClick={handleClear}
+          className="btn-secondary"
+        >
+          Clear
+        </button>
       </div>
+
+      <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+        Tip: Press Ctrl + Enter to convert.
+      </p>
 
       {loading && (
         <div className="flex items-center gap-3 mt-5">
@@ -178,48 +190,62 @@ const Base64Tool = () => {
 
       {output && (
         <div className="mt-6">
-          <div className="flex justify-between items-center mb-3">
-            <h3 className="font-medium text-gray-800 dark:text-gray-200">
+          <div className="flex flex-wrap justify-between items-center gap-3 mb-3">
+            <h3 className="font-medium">
               Result
             </h3>
 
-            <button
-              onClick={handleCopy}
-              className="
-                bg-gray-200
-                hover:bg-gray-300
-                dark:bg-gray-700
-                dark:hover:bg-gray-600
-                px-3
-                py-1.5
-                rounded-lg
-                text-sm
-                transition-all
-              "
-            >
-              📋 Copy
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={handleCopy}
+                className="btn-secondary"
+              >
+                📋 Copy
+              </button>
+
+              <button
+                onClick={handleDownload}
+                className="btn-secondary"
+              >
+                ⬇ Download
+              </button>
+            </div>
           </div>
 
-          <pre
-            className="
-              bg-gray-50
-              dark:bg-gray-800
-              border
-              border-gray-200
-              dark:border-gray-700
-              rounded-lg
-              p-4
-              overflow-x-auto
-              font-mono
-              text-sm
-              whitespace-pre-wrap
-              text-gray-800
-              dark:text-gray-100
-            "
-          >
+          <pre className="output-box">
             {output}
           </pre>
+
+          <button
+            onClick={handleUseAsInput}
+            className="btn-secondary mt-3"
+          >
+            ↻ Use Result as Input
+          </button>
+
+          {stats && (
+            <div className="grid grid-cols-2 gap-3 mt-4">
+              <div className="app-surface p-3 text-center">
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  Characters
+                </div>
+
+                <div className="font-semibold">
+                  {stats.chars}
+                </div>
+              </div>
+
+              <div className="app-surface p-3 text-center">
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  Size
+                </div>
+
+                <div className="font-semibold">
+                  {stats.size} KB
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
