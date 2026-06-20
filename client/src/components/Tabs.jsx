@@ -6,8 +6,8 @@ const Tabs = ({ activeTab, setActiveTab }) => {
   const tabs = [
     { id: "json", label: "JSON Formatter" },
     { id: "base64", label: "Base64 Tool" },
-    { id: "history", label: "History" },
     { id: "password", label: "Password Generator" },
+    { id: "history", label: "JSON History" },
   ];
 
   return (

@@ -54,3 +54,39 @@ exports.getJsonHistory = async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch JSON history' });
   }
 };
+
+exports.deleteJsonHistory = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deleted = await FormattedJson.findByIdAndDelete(id);
+
+    if (!deleted) {
+      return res.status(404).json({
+        error: "History entry not found",
+      });
+    }
+
+    res.json({
+      message: "History entry deleted successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: "Failed to delete history entry",
+    });
+  }
+};
+
+exports.clearJsonHistory = async (req, res) => {
+  try {
+    await FormattedJson.deleteMany({});
+
+    res.json({
+      message: "History cleared successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: "Failed to clear history",
+    });
+  }
+};
