@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------- Global ---------- */
+
 html {
   scroll-behavior: smooth;
 }
@@ -7,13 +11,14 @@ html {
 body {
   background-color: #f8fafc;
   color: #111827;
-  transition-property: background-color, color;
-  transition-duration: 300ms;
+  transition:
+    background-color 300ms ease,
+    color 300ms ease;
 }
 
 .dark body {
-  background-color: #0f172a;
-  color: #f8fafc;
+  background-color: #030712;
+  color: #f9fafb;
 }
 
 * {
@@ -24,20 +29,97 @@ button,
 input,
 textarea,
 select {
-  transition: all 200ms;
+  transition: all 200ms ease;
 }
 
 button:focus,
 input:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
   outline: none;
-  /* Emulate Tailwind's ring utilities with box-shadow: inner ring then offset */
-  box-shadow: 0 0 0 2px rgba(59,130,246,0.5), 0 0 0 4px #ffffff;
+  box-shadow:
+    0 0 0 2px rgba(59, 130, 246, 0.5),
+    0 0 0 4px #ffffff;
 }
 
 .dark button:focus,
 .dark input:focus,
-.dark textarea:focus {
-  /* Use dark offset color for the outer shadow */
-  box-shadow: 0 0 0 2px rgba(59,130,246,0.5), 0 0 0 4px #111827;
+.dark textarea:focus,
+.dark select:focus {
+  box-shadow:
+    0 0 0 2px rgba(59, 130, 246, 0.5),
+    0 0 0 4px #111827;
+}
+
+/* ---------- Reusable Components ---------- */
+
+@utility app-card {
+  @apply bg-white dark:bg-gray-900
+         border border-gray-200 dark:border-gray-700
+         rounded-xl shadow-sm;
+}
+
+@utility app-surface {
+  @apply bg-gray-50 dark:bg-gray-800
+         border border-gray-200 dark:border-gray-700
+         rounded-lg;
+}
+
+@utility app-input {
+  @apply w-full
+         p-4
+         rounded-lg
+         border border-gray-300 dark:border-gray-700
+         bg-gray-50 dark:bg-gray-800
+         text-gray-900 dark:text-gray-100
+         focus:ring-2 focus:ring-blue-500;
+}
+
+@utility btn-primary {
+  @apply bg-blue-600 hover:bg-blue-700
+         text-white
+         px-5 py-2.5
+         rounded-lg
+         font-medium
+         transition-all;
+}
+
+@utility btn-success {
+  @apply bg-green-600 hover:bg-green-700
+         text-white
+         px-5 py-2.5
+         rounded-lg
+         font-medium
+         transition-all;
+}
+
+@utility btn-secondary {
+  @apply bg-gray-200 hover:bg-gray-300
+         dark:bg-gray-700
+         dark:hover:bg-gray-600
+         text-gray-800
+         dark:text-gray-100
+         px-4 py-2
+         rounded-lg
+         transition-all;
+}
+
+@utility section-title {
+  @apply text-2xl font-semibold
+         text-gray-900 dark:text-white;
+}
+
+@utility section-subtitle {
+  @apply text-sm
+         text-gray-500 dark:text-gray-400;
+}
+
+@utility output-box {
+  @apply app-surface
+         p-4
+         overflow-x-auto
+         font-mono
+         text-sm
+         whitespace-pre-wrap
+         text-gray-800 dark:text-gray-100;
 }

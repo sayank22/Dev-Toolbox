@@ -45,25 +45,61 @@ const JsonFormatter = () => {
     }
   };
 
-  return (
-    <div
-      className="
-        bg-white
-        dark:bg-gray-900
-        border
-        border-gray-200
-        dark:border-gray-700
-        rounded-xl
-        shadow-sm
-        p-6
-      "
-    >
-      <div className="mb-5">
-        <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
-          JSON Formatter
-        </h2>
+  const handleClear = () => {
+    setInput("");
+    setOutput("");
+    setError("");
+    toast.success("Cleared");
+  };
 
-        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+  const handleDownload = () => {
+    if (!output) return;
+
+    const blob = new Blob([output], {
+      type: "application/json",
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "formatted.json";
+    a.click();
+
+    URL.revokeObjectURL(url);
+
+    toast.success("Downloaded JSON");
+  };
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files?.[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      setInput(event.target.result);
+      toast.success("JSON file loaded");
+    };
+
+    reader.readAsText(file);
+  };
+
+  const stats = output
+    ? {
+        lines: output.split("\n").length,
+        chars: output.length,
+        size: (output.length / 1024).toFixed(2),
+      }
+    : null;
+
+  return (
+    <div className="app-card p-6">
+      <div className="mb-5">
+        <h2 className="section-title">JSON Formatter</h2>
+
+        <p className="section-subtitle mt-1">
           Format and beautify raw JSON instantly.
         </p>
       </div>
@@ -71,47 +107,46 @@ const JsonFormatter = () => {
       <textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.ctrlKey && e.key === "Enter") {
+            handleFormat();
+          }
+        }}
         rows={10}
         placeholder='Paste JSON here... e.g. {"name":"Sayan"}'
-        className="
-          w-full
-          p-4
-          rounded-lg
-          border
-          border-gray-300
-          dark:border-gray-700
-          bg-gray-50
-          dark:bg-gray-800
-          text-gray-900
-          dark:text-gray-100
-          font-mono
-          text-sm
-          resize-none
-          focus:outline-none
-          focus:ring-2
-          focus:ring-blue-500
-        "
+        className="app-input font-mono text-sm resize-none"
       />
 
-      <div className="flex gap-3 mt-4">
+      <div className="flex flex-wrap gap-3 mt-4">
         <button
           onClick={handleFormat}
           disabled={loading}
-          className="
-            bg-blue-600
-            hover:bg-blue-700
-            disabled:opacity-50
-            text-white
-            px-5
-            py-2.5
-            rounded-lg
-            font-medium
-            transition-all
-          "
+          className="btn-primary disabled:opacity-50"
         >
           {loading ? "Formatting..." : "Format JSON"}
         </button>
+
+        <button
+          onClick={handleClear}
+          className="btn-secondary"
+        >
+          Clear
+        </button>
+
+        <label className="btn-secondary cursor-pointer">
+          Upload JSON
+          <input
+            type="file"
+            accept=".json"
+            onChange={handleFileUpload}
+            className="hidden"
+          />
+        </label>
       </div>
+
+      <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+        Tip: Press Ctrl + Enter to format quickly.
+      </p>
 
       {loading && (
         <div className="flex items-center gap-3 mt-5">
@@ -131,48 +166,62 @@ const JsonFormatter = () => {
 
       {output && (
         <div className="mt-6">
-          <div className="flex justify-between items-center mb-3">
+          <div className="flex flex-wrap justify-between items-center gap-3 mb-3">
             <h3 className="font-medium text-gray-800 dark:text-gray-200">
               Formatted Output
             </h3>
 
-            <button
-              onClick={handleCopy}
-              className="
-                bg-gray-200
-                hover:bg-gray-300
-                dark:bg-gray-700
-                dark:hover:bg-gray-600
-                px-3
-                py-1.5
-                rounded-lg
-                text-sm
-                transition-all
-              "
-            >
-              📋 Copy
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={handleCopy}
+                className="btn-secondary"
+              >
+                📋 Copy
+              </button>
+
+              <button
+                onClick={handleDownload}
+                className="btn-secondary"
+              >
+                ⬇ Download
+              </button>
+            </div>
           </div>
 
-          <pre
-            className="
-              bg-gray-50
-              dark:bg-gray-800
-              border
-              border-gray-200
-              dark:border-gray-700
-              rounded-lg
-              p-4
-              overflow-x-auto
-              font-mono
-              text-sm
-              whitespace-pre-wrap
-              text-gray-800
-              dark:text-gray-100
-            "
-          >
+          <pre className="output-box">
             {output}
           </pre>
+
+          {stats && (
+            <div className="grid grid-cols-3 gap-3 mt-4">
+              <div className="app-surface p-3 text-center">
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  Lines
+                </div>
+                <div className="font-semibold">
+                  {stats.lines}
+                </div>
+              </div>
+
+              <div className="app-surface p-3 text-center">
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  Characters
+                </div>
+                <div className="font-semibold">
+                  {stats.chars}
+                </div>
+              </div>
+
+              <div className="app-surface p-3 text-center">
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  Size
+                </div>
+                <div className="font-semibold">
+                  {stats.size} KB
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
