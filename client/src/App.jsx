@@ -36,6 +36,16 @@ const App = () => {
               Developer Toolbox
             </h1>
 
+            {/* Logo */}
+            {/* <div className="mx-auto mb-4">
+              <img src="/logo.png" alt="Logo" className="h-48 w-48" />
+            </div> */}
+
+            {/* Dark Mode Toggle at top-right corner */}
+            <div className="absolute top-4 right-4">
+              <DarkModeToggle />
+            </div>
+
             <p className="mt-3 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               A collection of essential developer utilities including JSON
               formatting, Base64 encoding/decoding, password generation, and
@@ -54,15 +64,41 @@ const App = () => {
             {renderTabContent()}
           </div>
 
-          {/* Dark Mode Toggle */}
-          <div className="flex justify-center mt-8">
-            <DarkModeToggle />
-          </div>
 
-          {/* <div className="mt-12 text-center text-sm text-gray-500 dark:text-gray-400">
-            Built with React, Express, MongoDB & Tailwind CSS
-          </div> */}
+          <div className="mt-10 flex flex-col md:flex-row items-center justify-between gap-4">
+  
+  <a
+    href="https://sayan-kundu-portfolio.netlify.app"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="btn-secondary bg-gradient-to-r from-teal-500 to-purple-500 text-white hover:from-teal-600 hover:to-purple-600"
+  >
+    Built by Sayan Kundu
+  </a>
 
+  <a
+    href="https://digitalheroesco.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="btn-primary bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600"
+  >
+    Built for Digital Heroes
+  </a>
+
+  <a
+    href="mailto:sayank10023@gmail.com"
+     className="
+    text-sm
+    text-gray-600
+    dark:text-gray-400
+    hover:text-blue-500
+    transition-colors
+  "
+  >
+    sayank10023@gmail.com
+  </a>
+
+</div>
         </div>
       </div>
     </ThemeProvider>
